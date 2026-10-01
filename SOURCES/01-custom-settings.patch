@@ -1,0 +1,13 @@
+diff --git a/src/plugins/rostersview/rostersviewplugin.cpp b/src/plugins/rostersview/rostersviewplugin.cpp
+index aec12b38..d74a7a9f 100644
+--- a/src/plugins/rostersview/rostersviewplugin.cpp
++++ b/src/plugins/rostersview/rostersviewplugin.cpp
+@@ -180,7 +180,7 @@ bool RostersViewPlugin::initSettings()
+ 	Options::setDefaultValue(OPV_ROSTER_SHOWRESOURCE,false);
+ 	Options::setDefaultValue(OPV_ROSTER_HIDESCROLLBAR,false);
+ 	Options::setDefaultValue(OPV_ROSTER_MERGESTREAMS,true);
+-	Options::setDefaultValue(OPV_ROSTER_VIEWMODE,IRostersView::ViewFull);
++	Options::setDefaultValue(OPV_ROSTER_VIEWMODE,IRostersView::ViewSimple);
+ 	Options::setDefaultValue(OPV_ROSTER_SORTMODE,IRostersView::SortByStatus);
+ 
+ 	if (FOptionsManager)
