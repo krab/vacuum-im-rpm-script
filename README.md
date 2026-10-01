@@ -42,25 +42,44 @@ This directory contains a reusable RPM build environment and an automated build 
 
 ## Prerequisites
 
-### On Red OS / RHEL / Fedora
+### Host System Requirements
+
+These packages must be installed on the host system to run the build script:
 
 ```bash
-# Core build tools
-sudo dnf install rpm-build rpmdevtools rpmlint mock redhat-rpm-config
+# On Red OS
+sudo dnf install git mock rpmlint rpm-build redos-rpm-config
 
-# C/C++ toolchain
-sudo dnf groupinstall "Development Tools"
-sudo dnf install cmake gcc-c++ make pkgconf-pkg-config
-
-# Mock configuration
-# Ensure /etc/mock/ contains appropriate config for your distribution
+# On Fedora / RHEL
+sudo dnf install git mock rpmlint rpm-build redhat-rpm-config
 ```
 
-### On openSUSE
+**Package descriptions:**
+- `git` - Required for `--get` mode to clone repositories and create archives
+- `mock` - Required for `--build` mode to build RPMs in clean chroot
+- `rpmlint` - Required for `--update` mode to validate spec files
+- `rpm-build` - Provides `rpmbuild` and core RPM macros
+- `redos-rpm-config` / `redhat-rpm-config` - Provides RPM macros like `%cmake`, `%cmake_build`, `%cmake_install`, `%_prefix`, `%_libdir`, etc.
+
+### Mock Configuration
+
+Ensure your mock configuration is set up for your target distribution:
 
 ```bash
-sudo zypper install rpm-build rpmdevtools rpmlint mock gcc-c++ make cmake
+# List available mock configs
+ls /etc/mock/
+
+# Common configs:
+# redos-80-x86_64.cfg    - Red OS 8.0
+# fedora-40-x86_64.cfg   - Fedora 40
+# centos-stream-9-x86_64.cfg - CentOS Stream 9
 ```
+
+### Build Dependencies
+
+Build dependencies (`BuildRequires` in the spec) are automatically installed by mock inside the chroot. These include compilers, libraries, and tools needed to build the package itself.
+
+If you need to add build dependencies, modify the `BuildRequires:` section in `SPECS/<package>.spec`.
 
 ## Build Script Usage
 
